@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot de Micaela</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>🤖 Chat de Mica</h1>
+            <p>Chatea con inteligencia artificial</p>
+            <div class="controls">
+                <button id="themeToggle">🌙 Tema Oscuro</button>
+                <select id="languageSelect">
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="en">🇺🇸 English</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="it">🇮🇹 Italiano</option>
+                    <option value="pt">🇵🇹 Português</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Escribe tu mensaje...">
+                <button id="sendButton">Enviar</button>
+            </div>
+            <div class="button-container">
+                <button id="helpBtn">🔍 Ayuda</button>
+                <button id="clearBtn">🗑️ Nuevo Chat</button>
+                <button id="timeBtn">🕒 Hora</button>
+            </div>
+        </div>
+    </div>
+    <script src="/config/config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
