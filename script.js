@@ -1,13 +1,5 @@
-// Configuracion
-let GROQ_API_KEY = localStorage.getItem('groq_api_key');
+import CONFIG from "./config/config.js";
 
-if (!GROQ_API_KEY) {
-    GROQ_API_KEY = prompt('🔐 Por favor, ingresá tu API Key de Groq:');
-    if (GROQ_API_KEY) {
-        localStorage.setItem('groq_api_key', GROQ_API_KEY);
-    }
-}
-const API_URL = "https://api.groq.com/openai/v1/chat/completions"; 
 const sounds = {
     send: new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3'),
     receive: new Audio('https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3')
@@ -114,49 +106,34 @@ document.addEventListener('DOMContentLoaded', function() {
     function hideTyping() {
         typingIndicator.style.display = 'none';
     }
+async function getBotResponse(userMessage) {
+    try {
+        const response = await fetch(`${CONFIG.BACKEND_URL}/api/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message: userMessage,
+                language: currentLanguage
+            })
+        });
 
-    async function getBotResponse(userMessage) {
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${GROQ_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    messages: [
-                        {
-                            role: 'system',
-                            content: languagePrompts[currentLanguage]
-                        },
-                        {
-                            role: 'user',
-                            content: userMessage
-                        }
-                    ],
-                    model: 'llama-3.1-8b-instant',
-                    temperature: 0.7,
-                    max_tokens: 500
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
-
-            const data = await response.json();
-            
-            sounds.receive.play().catch(e => console.log('Audio error:', e));
-            
-            return data.choices[0].message.content;
-            
-        } catch (error) {
-            console.error('Error:', error);
-            return currentLanguage === 'es' 
-                ? '😅 ¡Ups! Hubo un error. ¿Podés intentarlo de nuevo?'
-                : '😅 Oops! There was an error. Can you try again?';
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
         }
+
+        const data = await response.json();
+
+        sounds.receive.play().catch(e => console.log('Audio error:', e));
+        return data.reply;
+
+    } catch (error) {
+        console.error('Error:', error);
+        return currentLanguage === 'es'
+            ? '😅 ¡Ups! Hubo un error. ¿Podés intentarlo de nuevo?'
+            : '😅 Oops! There was an error. Can you try again?';
     }
+}
+
 
     function handleClearChat() {
         chatMessages.innerHTML = '';
