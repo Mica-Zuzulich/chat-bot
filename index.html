@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatBot de Micaela</title>
+    <title>ChatBot de Micaela 🤖</title>
+
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <meta name="description" content="ChatBot de Micaela — Asistente virtual inteligente hecho con JavaScript, Node y Railway.">
+    <meta name="keywords" content="chatbot, inteligencia artificial, portfolio, javascript, node, micaela, asistente virtual">
+    <meta name="author" content="Micaela Zuzulich">
+
+    <meta property="og:title" content="ChatBot de Micaela 🤖">
+    <meta property="og:description" content="Un asistente inteligente hecho por Micaela. ¡Probalo!">
+    <meta property="og:image" content="https://mica-zuzulich.github.io/chat-bot/preview.png">
+    <meta property="og:url" content="https://mica-zuzulich.github.io/chat-bot/">
+    <meta property="og:type" content="website">
 </head>
+
 <body>
     <div class="chat-container">
         <div class="chat-header">
@@ -23,8 +36,7 @@
             </div>
         </div>
         
-        <div class="chat-messages" id="chatMessages">
-        </div>
+        <div class="chat-messages" id="chatMessages"></div>
 
         <div class="typing-indicator" id="typingIndicator">
             <div class="typing-dots">
@@ -46,9 +58,19 @@
             </div>
         </div>
     </div>
-    <<script src="./config/config.js"></script>
-<script src="script.js"></script>
 
+    <script type="module" src="./config/config.js"></script>
+    <script src="script.js"></script>
 
+    <!-- 🧠 Título dinámico -->
+    <script>
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          document.title = "👋 Volvé a chatear conmigo!";
+        } else {
+          document.title = "🤖 Chat de Mica";
+        }
+      });
+    </script>
 </body>
 </html>
